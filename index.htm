@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Test — ¿Dónde estás vos? · Mirada Sistémica con Ale Lorenzo</title>
+  <meta name="description" content="Un test de autoexploración sistémica para mujeres. Descubrí qué parte de tu vida está pidiendo ser mirada." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #F5EDE0;
+      --warm-white: #FDFAF6;
+      --purple-light: #EAE7F8;
+      --purple-mid: #AFA9EC;
+      --purple: #534AB7;
+      --purple-dark: #3C3489;
+      --brown: #99522B;
+      --brown-light: #FBD3A4;
+      --text: #2C2215;
+      --text-soft: #6B5744;
+      --text-muted: #A08B7A;
+      --border: rgba(153, 82, 43, 0.15);
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* ── top bar ── */
+    .topbar {
+      width: 100%;
+      text-align: center;
+      padding: 1.25rem 1rem 1rem;
+      border-bottom: 1px solid var(--border);
+      background: var(--warm-white);
+    }
+    .topbar-name {
+      font-family: 'Lora', serif;
+      font-size: 13px;
+      letter-spacing: 0.08em;
+      color: var(--brown);
+      text-transform: uppercase;
+    }
+
+    /* ── main card ── */
+    .card {
+      background: var(--warm-white);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 2.5rem 2rem;
+      width: 100%;
+      max-width: 580px;
+      margin: 2rem 1rem 3rem;
+      box-shadow: 0 4px 32px rgba(153, 82, 43, 0.07);
+    }
+
+    /* ── intro header ── */
+    .intro-eyebrow {
+      font-size: 11px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--brown);
+      margin-bottom: 0.75rem;
+    }
+    .intro-title {
+      font-family: 'Lora', serif;
+      font-size: 26px;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.35;
+      margin-bottom: 0.75rem;
+    }
+    .intro-sub {
+      font-size: 15px;
+      color: var(--text-soft);
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+    }
+    .start-btn {
+      display: inline-block;
+      background: var(--purple);
+      color: #fff;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      border: none;
+      border-radius: 10px;
+      padding: 13px 30px;
+      cursor: pointer;
+      transition: background 0.15s;
+      text-decoration: none;
+    }
+    .start-btn:hover { background: var(--purple-dark); }
+    .intro-disclaimer {
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-top: 1rem;
+    }
+
+    /* ── progress ── */
+    .progress-wrap {
+      margin-bottom: 1.75rem;
+    }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 12px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+    }
+    .progress-track {
+      background: var(--brown-light);
+      border-radius: 99px;
+      height: 5px;
+      overflow: hidden;
+    }
+    .progress-fill {
+      height: 100%;
+      background: var(--purple);
+      border-radius: 99px;
+      transition: width 0.4s ease;
+    }
+
+    /* ── question ── */
+    .question-text {
+      font-family: 'Lora', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1.45;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ── options ── */
+    .options { display: flex; flex-direction: column; gap: 10px; }
+    .opt {
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14.5px;
+      color: var(--text-soft);
+      text-align: left;
+      cursor: pointer;
+      line-height: 1.5;
+      transition: border-color 0.15s, background 0.15s, color 0.15s;
+    }
+    .opt:hover {
+      border-color: var(--purple-mid);
+      background: var(--purple-light);
+      color: var(--purple-dark);
+    }
+    .opt.selected {
+      border-color: var(--purple);
+      background: var(--purple-light);
+      color: var(--purple-dark);
+      font-weight: 500;
+    }
+
+    /* ── nav ── */
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.75rem;
+    }
+    .back-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 18px;
+      font-size: 13px;
+      color: var(--text-muted);
+      cursor: pointer;
+    }
+    .back-btn:hover { background: var(--cream); }
+    .next-btn {
+      background: var(--purple);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: 11px 26px;
+      font-size: 15px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.15s, opacity 0.15s;
+    }
+    .next-btn:hover:not(:disabled) { background: var(--purple-dark); }
+    .next-btn:disabled { opacity: 0.3; cursor: default; }
+
+    /* ── result ── */
+    .result-emoji { font-size: 2.75rem; margin-bottom: 1rem; text-align: center; }
+    .result-title {
+      font-family: 'Lora', serif;
+      font-size: 22px;
+      font-weight: 400;
+      color: var(--text);
+      text-align: center;
+      margin-bottom: 0.75rem;
+    }
+    .result-desc {
+      font-size: 15px;
+      color: var(--text-soft);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .bars { display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.5rem; }
+    .bar-row { display: flex; align-items: center; gap: 10px; }
+    .bar-label { font-size: 12px; color: var(--text-muted); min-width: 115px; }
+    .bar-track { flex: 1; background: var(--brown-light); border-radius: 99px; height: 7px; overflow: hidden; }
+    .bar-fill { height: 100%; background: var(--purple); border-radius: 99px; }
+    .bar-pct { font-size: 12px; color: var(--text-muted); min-width: 30px; text-align: right; }
+
+    .invitation-box {
+      background: var(--purple-light);
+      border: 1px solid var(--purple-mid);
+      border-radius: 14px;
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .invitation-box p {
+      font-size: 14.5px;
+      color: var(--purple-dark);
+      line-height: 1.65;
+    }
+
+    .cta-main {
+      display: block;
+      width: 100%;
+      background: var(--purple);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 15px;
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      text-align: center;
+      cursor: pointer;
+      margin-bottom: 10px;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .cta-main:hover { background: var(--purple-dark); }
+
+    .cta-sec {
+      display: block;
+      width: 100%;
+      background: transparent;
+      color: var(--brown);
+      border: 1px solid var(--brown-light);
+      border-radius: 12px;
+      padding: 13px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.15s;
+    }
+    .cta-sec:hover { background: var(--cream); }
+
+    .restart-link {
+      display: block;
+      text-align: center;
+      margin-top: 1.5rem;
+      font-size: 12px;
+      color: var(--text-muted);
+      background: none;
+      border: none;
+      cursor: pointer;
+      text-decoration: underline;
+    }
+
+    /* ── divider ── */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 1.5rem 0;
+    }
+
+    /* ── footer ── */
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+      padding: 1.5rem 1rem 2rem;
+    }
+    .footer a { color: var(--brown); text-decoration: none; }
+
+    @media (max-width: 480px) {
+      .card { padding: 1.75rem 1.25rem; margin: 1rem 0.75rem 2rem; }
+      .intro-title { font-size: 22px; }
+      .question-text { font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-name">Mirada Sistémica · Ale Lorenzo</div>
+</div>
+
+<div class="card" id="main-card">
+  <div id="quiz-area"></div>
+</div>
+
+<div class="footer">
+  Ale Lorenzo · Coach Ontológica y Sistémica · <a href="https://www.instagram.com/alelorenzo.coach" target="_blank">@alelorenzo.coach</a>
+</div>
+
+<script>
+const questions = [
+  {
+    q: "Cuando te pregunto dónde estás vos en tu propia vida… ¿qué sentís?",
+    opts: [
+      { t: "Un vacío raro, como si yo hubiera desaparecido de algún lugar", d: "lugar" },
+      { t: "Mucho cansancio de cargar con todo y con todos", d: "lugar" },
+      { t: "Tensión con alguien cercano que no sé cómo resolver", d: "vinculos" },
+      { t: "Una meta que sigo postergando sin entender por qué", d: "metas" }
+    ]
+  },
+  {
+    q: "¿Qué suele pasarte cuando alguien te pide algo que no querés hacer?",
+    opts: [
+      { t: "Digo que sí aunque por dentro digo que no", d: "lugar" },
+      { t: "Me enojo, pero igual termino haciendo lo que me pidieron", d: "vinculos" },
+      { t: "Me bloqueo y no puedo ni responder en el momento", d: "lugar" },
+      { t: "Pongo excusas para no enfrentar el conflicto", d: "vinculos" }
+    ]
+  },
+  {
+    q: "Cuando imaginás tu vida dentro de 2 años, ¿qué aparece primero?",
+    opts: [
+      { t: "Nada concreto — me cuesta proyectarme a futuro", d: "metas" },
+      { t: "Una imagen bonita pero que siento muy lejos de mí", d: "metas" },
+      { t: "Miedo a decepcionar a quienes me rodean si cambio", d: "vinculos" },
+      { t: "Ganas de algo nuevo, pero sin saber por dónde empezar", d: "metas" }
+    ]
+  },
+  {
+    q: "¿Con qué frase te identificás más en este momento?",
+    opts: [
+      { t: "\"Siento que me perdí en el camino\"", d: "lugar" },
+      { t: "\"Las relaciones me pasan factura emocionalmente\"", d: "vinculos" },
+      { t: "\"Sé lo que quiero pero algo me frena\"", d: "metas" },
+      { t: "\"No sé bien quién soy cuando no estoy cuidando a alguien\"", d: "lugar" }
+    ]
+  },
+  {
+    q: "¿Qué hacés habitualmente con tu tiempo libre (cuando lo tenés)?",
+    opts: [
+      { t: "Termino ocupándome de los demás igual", d: "lugar" },
+      { t: "Hago cosas pero con sensación de que falta algo", d: "metas" },
+      { t: "Me quedo pensando en conversaciones pendientes o conflictos", d: "vinculos" },
+      { t: "Descanso pero con culpa, como si no me lo mereciera", d: "lugar" }
+    ]
+  },
+  {
+    q: "Si tu cuerpo pudiera hablar, ¿qué diría que está guardando?",
+    opts: [
+      { t: "Tensión acumulada que no sé de dónde viene", d: "lugar" },
+      { t: "Tristeza o bronca por vínculos que no están bien", d: "vinculos" },
+      { t: "Una energía contenida que quiere salir pero no puede", d: "metas" },
+      { t: "Agotamiento de años de no tenerme en cuenta", d: "lugar" }
+    ]
+  },
+  {
+    q: "¿Qué te resulta más difícil hoy?",
+    opts: [
+      { t: "Decir \"esto soy yo, esto quiero y esto no\"", d: "lugar" },
+      { t: "Ordenar un vínculo que me pesa o me confunde", d: "vinculos" },
+      { t: "Dar el primer paso hacia algo que deseo hace tiempo", d: "metas" },
+      { t: "Dejar de hacer todo para los demás sin descuidarme", d: "lugar" }
+    ]
+  }
+];
+
+const results = {
+  lugar: {
+    emoji: "🌿",
+    title: "Es tiempo de volver a vos",
+    desc: "Tu historia muestra que durante mucho tiempo pusiste a otros en el centro. Sabés dar, cuidar, sostener — pero en ese recorrido fuiste dejando tu propio lugar vacío. No es debilidad. Es lo que aprendiste. Y también se puede aprender otra cosa.",
+    invitation: "En el coaching sistémico trabajamos juntas para que puedas ocupar tu lugar sin culpa: conectar con quién sos más allá de los roles, escuchar lo que tu cuerpo sabe, y crear espacio para la mujer que está lista para florecer.",
+    cta1_text: "🌿 Quiero mi sesión Brújula (USD 20)",
+    cta1_href: "https://wa.me/598XXXXXXXX?text=Hola%20Ale%2C%20quiero%20mi%20sesi%C3%B3n%20Br%C3%BAjula",
+    cta2_text: "📖 Descargá la guía gratuita \"Volvé a vos\"",
+    cta2_href: "https://alelorenzo.coach/guia"
+  },
+  vinculos: {
+    emoji: "🌀",
+    title: "Hay algo en tus vínculos que pide ser mirado",
+    desc: "Las relaciones te importan profundamente, y justamente por eso duele cuando algo no fluye. Cargás con dinámicas que no elegiste, lealtades invisibles y emociones que no siempre sabés dónde poner. Tu sistema relacional tiene algo para decirte.",
+    invitation: "Desde la Mirada Sistémica podemos explorar qué patrones relacionales se repiten en tu historia, qué lugar ocupa cada uno, y cómo encontrar un orden que traiga más paz y claridad a tus vínculos — sin romper, sino reorganizando.",
+    cta1_text: "🌀 Quiero mi sesión Brújula (USD 20)",
+    cta1_href: "https://wa.me/598XXXXXXXX?text=Hola%20Ale%2C%20quiero%20mi%20sesi%C3%B3n%20Br%C3%BAjula",
+    cta2_text: "📖 Descargá la guía gratuita \"Volvé a vos\"",
+    cta2_href: "https://alelorenzo.coach/guia"
+  },
+  metas: {
+    emoji: "✨",
+    title: "Algo en vos está lista para más",
+    desc: "Hay algo que querés — una vida distinta, un proyecto, una versión tuya más plena. Lo sentís. A veces lo ves clarísimo. Y aún así, algo te frena. No es falta de ganas ni de capacidad. Hay algo más profundo que vale la pena mirar.",
+    invitation: "En el proceso de coaching sistémico trabajamos ese \"algo\" desde el cuerpo, desde tu historia y desde los sistemas que te rodean. Para que puedas avanzar hacia lo que querés con raíz — no solo con fuerza de voluntad.",
+    cta1_text: "✨ Quiero mi sesión Brújula (USD 20)",
+    cta1_href: "https://wa.me/598XXXXXXXX?text=Hola%20Ale%2C%20quiero%20mi%20sesi%C3%B3n%20Br%C3%BAjula",
+    cta2_text: "📖 Descargá la guía gratuita \"Volvé a vos\"",
+    cta2_href: "https://alelorenzo.coach/guia"
+  }
+};
+
+let current = 0;
+let answers = [];
+let phase = "intro";
+
+function render() {
+  const area = document.getElementById("quiz-area");
+  if (phase === "intro") { renderIntro(area); return; }
+  if (phase === "result") { renderResult(area); return; }
+  renderQuestion(area);
+}
+
+function renderIntro(area) {
+  area.innerHTML = `
+    <p class="intro-eyebrow">Test de autoexploración sistémica · 7 preguntas</p>
+    <h1 class="intro-title">¿En qué parte de tu vida sentís que algo se movió de lugar?</h1>
+    <p class="intro-sub">Este test está pensado para mujeres que sienten que algo en su vida pide ser mirado — pero no siempre saben desde dónde empezar.<br><br>Respondé desde lo que sentís, no desde lo que "debería" ser.</p>
+    <button class="start-btn" onclick="startQuiz()">Quiero descubrirlo →</button>
+    <p class="intro-disclaimer">Gratuito · Sin registro · Resultados al instante</p>
+  `;
+}
+
+function renderQuestion(area) {
+  const q = questions[current];
+  const pct = Math.round((current / questions.length) * 100);
+  area.innerHTML = `
+    <div class="progress-wrap">
+      <div class="progress-meta">
+        <span>Pregunta ${current + 1} de ${questions.length}</span>
+        <span>${pct}% completado</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="pbar" style="width:${pct}%"></div></div>
+    </div>
+    <p class="question-text">${q.q}</p>
+    <div class="options">
+      ${q.opts.map((o, i) => `<button class="opt${answers[current] === i ? " selected" : ""}" onclick="pick(${i})">${o.t}</button>`).join("")}
+    </div>
+    <div class="nav">
+      <button class="back-btn" onclick="back()" ${current === 0 ? 'style="visibility:hidden"' : ""}>← Volver</button>
+      <button class="next-btn" onclick="next()" ${answers[current] === undefined ? "disabled" : ""}>
+        ${current === questions.length - 1 ? "Ver mi resultado →" : "Siguiente →"}
+      </button>
+    </div>
+  `;
+}
+
+function renderResult(area) {
+  const scores = { lugar: 0, vinculos: 0, metas: 0 };
+  answers.forEach((ai, qi) => { scores[questions[qi].opts[ai].d]++; });
+  const winner = Object.keys(scores).reduce((a, b) => scores[a] >= scores[b] ? a : b);
+  const r = results[winner];
+  const total = questions.length;
+  const pct = d => Math.round(scores[d] / total * 100);
+
+  area.innerHTML = `
+    <p style="font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--brown);text-align:center;margin-bottom:1rem">Tu resultado</p>
+    <div class="result-emoji">${r.emoji}</div>
+    <h2 class="result-title">${r.title}</h2>
+    <p class="result-desc">${r.desc}</p>
+    <hr class="divider" />
+    <div class="bars">
+      <div class="bar-row"><span class="bar-label">Ocupar tu lugar</span><div class="bar-track"><div class="bar-fill" style="width:${pct("lugar")}%"></div></div><span class="bar-pct">${pct("lugar")}%</span></div>
+      <div class="bar-row"><span class="bar-label">Ordenar vínculos</span><div class="bar-track"><div class="bar-fill" style="width:${pct("vinculos")}%"></div></div><span class="bar-pct">${pct("vinculos")}%</span></div>
+      <div class="bar-row"><span class="bar-label">Manifestar metas</span><div class="bar-track"><div class="bar-fill" style="width:${pct("metas")}%"></div></div><span class="bar-pct">${pct("metas")}%</span></div>
+    </div>
+    <hr class="divider" />
+    <div class="invitation-box"><p>${r.invitation}</p></div>
+    <a class="cta-main" href="${r.cta1_href}" target="_blank">${r.cta1_text}</a>
+    <a class="cta-sec" href="${r.cta2_href}" target="_blank">${r.cta2_text}</a>
+    <button class="restart-link" onclick="restart()">Volver a empezar</button>
+  `;
+}
+
+function startQuiz() { phase = "quiz"; render(); }
+
+function pick(i) {
+  answers[current] = i;
+  render();
+}
+
+function next() {
+  if (answers[current] === undefined) return;
+  if (current < questions.length - 1) { current++; render(); }
+  else { phase = "result"; render(); }
+}
+
+function back() {
+  if (current > 0) { current--; render(); }
+  else { phase = "intro"; render(); }
+}
+
+function restart() {
+  current = 0; answers = []; phase = "intro"; render();
+}
+
+render();
+</script>
+</body>
+</html>
